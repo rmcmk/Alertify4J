@@ -8,7 +8,7 @@ The name is temporary, but originates since the alert style was loosely based of
 Building
 ========
 
-Add the nikkii.us repository to your maven pom.xml:
+Add the jitpack repository to your maven pom.xml:
 
     <repositories>
         <repository>
