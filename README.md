@@ -10,20 +10,20 @@ Building
 
 Add the nikkii.us repository to your maven pom.xml:
 
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
     
 And define Alertify4J as a dependency:
 
-	<dependency>
-	    <groupId>com.github.ryleykimmel</groupId>
-	    <artifactId>Alertify4J</artifactId>
-	    <version>master-SNAPSHOT</version>
-	</dependency>
+    <dependency>
+        <groupId>com.github.ryleykimmel</groupId>
+        <artifactId>Alertify4J</artifactId>
+        <version>master-SNAPSHOT</version>
+    </dependency>
 
 Example
 ========
