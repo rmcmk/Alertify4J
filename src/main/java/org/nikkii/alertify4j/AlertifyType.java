@@ -6,5 +6,5 @@ package org.nikkii.alertify4j;
  * @author Nikki
  */
 public enum AlertifyType {
-	LOG, INFO, WARNING, ERROR, SUCCESS;
+	LOG, INFO, WARNING, ERROR, SUCCESS
 }

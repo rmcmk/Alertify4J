@@ -12,5 +12,5 @@ public interface AlertifyWindowClick {
 	 *
 	 * @param window The window that was clicked.
 	 */
-	public void alertClicked(AlertifyWindow window);
+	void alertClicked(AlertifyWindow window);
 }

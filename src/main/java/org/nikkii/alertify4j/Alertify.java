@@ -9,6 +9,7 @@ import org.nikkii.alertify4j.themes.AlertifyTheme;
 import org.nikkii.alertify4j.themes.BootstrapTheme;
 import org.nikkii.alertify4j.tween.ComponentAccessor;
 import org.nikkii.alertify4j.ui.AlertifyWindow;
+import org.nikkii.alertify4j.ui.AlertifyWindowClick;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
@@ -100,17 +101,14 @@ public class Alertify {
 	 * TODO time the update call and adjust accordingly.
 	 */
 	private Alertify() {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					manager.update(0.01f);
+		new Thread(() -> {
+			while (true) {
+				manager.update(0.01f);
 
-					try {
-						Thread.sleep(10);
-					} catch (Exception e) {
-						break;
-					}
+				try {
+					Thread.sleep(10);
+				} catch (Exception e) {
+					break;
 				}
 			}
 		}).start();
@@ -182,19 +180,16 @@ public class Alertify {
 
 		Tween
 			.to(window, ComponentAccessor.POSITION_X, 0.5f)
-			.setCallback(new TweenCallback() {
-				@Override
-				public void onEvent(int event, BaseTween<?> baseTween) {
-					if (event == TweenCallback.START) // Show it when this starts
-						window.setVisible(true);
-					else if (event == TweenCallback.STEP) { // Attempt to hide the window off-screen
-						int width = screen.width - 10 - window.getX(); // 10 extra for the spacing.
-						if (width <= window.getActualWidth() + 1) {
-							window.setSize(width, window.getActualHeight());
-						}
-					} else if (event == TweenCallback.COMPLETE)
-						callback.run();
-				}
+			.setCallback((event, baseTween) -> {
+				if (event == TweenCallback.START) // Show it when this starts
+					window.setVisible(true);
+				else if (event == TweenCallback.STEP) { // Attempt to hide the window off-screen
+					int width = screen.width - 10 - window.getX(); // 10 extra for the spacing.
+					if (width <= window.getActualWidth() + 1) {
+						window.setSize(width, window.getActualHeight());
+					}
+				} else if (event == TweenCallback.COMPLETE)
+					callback.run();
 			})
 			.setCallbackTriggers(TweenCallback.START | TweenCallback.STEP)
 			.ease(Back.OUT)
@@ -234,14 +229,11 @@ public class Alertify {
 		Tween.to(window, ComponentAccessor.POSITION_X, 0.5f)
 			.ease(Back.IN)
 			.target(screen.width)
-			.setCallback(new TweenCallback() {
-				@Override
-				public void onEvent(int event, BaseTween<?> tween) {
-					if (event == TweenCallback.COMPLETE)
-						removeWindow(window);
-					else if (event == TweenCallback.STEP)
-						window.setSize(screen.width - window.getX(), window.getActualHeight());
-				}
+			.setCallback((event, tween) -> {
+				if (event == TweenCallback.COMPLETE)
+					removeWindow(window);
+				else if (event == TweenCallback.STEP)
+					window.setSize(screen.width - window.getX(), window.getActualHeight());
 			})
 			.setCallbackTriggers(TweenCallback.COMPLETE | TweenCallback.STEP)
 			.start(manager);
