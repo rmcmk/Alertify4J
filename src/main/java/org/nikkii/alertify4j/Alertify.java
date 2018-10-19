@@ -78,17 +78,17 @@ public class Alertify {
 	/**
 	 * The list of visible windows.
 	 */
-	private final List<AlertifyWindow> windows = new LinkedList<AlertifyWindow>();
+	private final List<AlertifyWindow> windows = new LinkedList<>();
 
 	/**
 	 * The list of windows being removed. This is used to make sure no windows are moved while we're removing them.
 	 */
-	private final List<AlertifyWindow> remove = new LinkedList<AlertifyWindow>();
+	private final List<AlertifyWindow> remove = new LinkedList<>();
 
 	/**
 	 * The queue of windows which won't fit on screen until we close a couple.
 	 */
-	private final Queue<AlertifyConfig> windowQueue = new LinkedList<AlertifyConfig>();
+	private final Queue<AlertifyConfig> windowQueue = new LinkedList<>();
 
 	/**
 	 * The TweenManager handling animations
