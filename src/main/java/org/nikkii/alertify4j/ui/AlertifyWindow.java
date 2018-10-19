@@ -4,7 +4,6 @@ import com.sun.awt.AWTUtilities;
 import org.nikkii.alertify4j.AlertifyColorPair;
 import org.nikkii.alertify4j.AlertifyConfig;
 import org.nikkii.alertify4j.themes.AlertifyTheme;
-import org.nikkii.alertify4j.util.Optional;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -15,6 +14,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Optional;
 import java.util.concurrent.ScheduledFuture;
 
 /**
@@ -66,7 +66,7 @@ public class AlertifyWindow extends JWindow {
 
 		Optional<Font> font = Optional.ofNullable(config.getFont());
 
-		label.setFont(font.isPresent() ? font.get() : theme.getFont()); //checking null state to see which font to use
+		label.setFont(font.orElseGet(theme::getFont)); //checking null state to see which font to use
 		label.setForeground(colors.getForeground());
 
 		JPanel content = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 5));

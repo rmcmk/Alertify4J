@@ -1,10 +1,10 @@
 package org.nikkii.alertify4j;
 
 import org.nikkii.alertify4j.ui.AlertifyWindowClick;
-import org.nikkii.alertify4j.util.Optional;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.util.Optional;
 
 /**
  * An alert config.
@@ -33,9 +33,9 @@ public class AlertifyConfig {
 	private final long closeDelay;
 
 	/**
-	 * The {@link Optional} window callback.
+	 * The window callback.
 	 */
-	private final Optional<AlertifyWindowClick> callback;
+	private final AlertifyWindowClick callback;
 
 	/**
 	 * Create a new Alertify config.
@@ -48,7 +48,7 @@ public class AlertifyConfig {
 		this.type = type;
 		this.label = label;
 		this.closeDelay = closeDelay;
-		this.callback = Optional.ofNullable(callback);
+		this.callback = callback;
 		this.font = font;
 	}
 
@@ -80,21 +80,12 @@ public class AlertifyConfig {
 	}
 
 	/**
-	 * Check if the Optional callback is present.
-	 *
-	 * @return True, if there's a click callback.
-	 */
-	public boolean hasCallback() {
-		return callback.isPresent();
-	}
-
-	/**
 	 * Get the click callback.
 	 *
 	 * @return The click callback.
 	 */
-	public AlertifyWindowClick getCallback() {
-		return callback.get();
+	public Optional<AlertifyWindowClick> getCallback() {
+		return Optional.ofNullable(callback);
 	}
 
 	/**

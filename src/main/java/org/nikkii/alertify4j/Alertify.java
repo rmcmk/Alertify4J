@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -150,9 +151,8 @@ public class Alertify {
 						return;
 					}
 
-					if (config.hasCallback()) {
-						config.getCallback().alertClicked(window);
-					}
+					Optional<AlertifyWindowClick> optional = config.getCallback();
+					optional.ifPresent(callback -> callback.alertClicked(window));
 
 					hideWindow(window);
 				}
@@ -161,16 +161,10 @@ public class Alertify {
 
 			windows.add(window);
 
-			showWindow(window, new Runnable() {
-				public void run() {
-					if (config.shouldAutoClose()) {
-						window.setCloseFuture(scheduler.schedule(new Runnable() {
-							@Override
-							public void run() {
-								hideWindow(window);
-							}
-						}, config.getCloseDelay(), TimeUnit.MILLISECONDS));
-					}
+			showWindow(window, () -> {
+				if (config.shouldAutoClose()) {
+					window.setCloseFuture(scheduler.schedule(
+							() -> hideWindow(window), config.getCloseDelay(), TimeUnit.MILLISECONDS));
 				}
 			});
 		}
